@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ImageBackground,
+  Button,
 } from "react-native";
 
 import { useFonts } from "expo-font";
@@ -21,12 +22,12 @@ const initialState = {
   password: "",
 };
 
-const LoginScreen = () => {
+export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [fontsLoaded] = useFonts({
-    "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Medium": require("../assets/fonts/Roboto-Medium.ttf"),
+    "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -51,7 +52,7 @@ const LoginScreen = () => {
       <View style={styles.container} onLayout={onLayoutRootView}>
         <ImageBackground
           style={styles.imageBg}
-          source={require("../assets/images/BG.jpg")}
+          source={require("../../assets/images/BG.jpg")}
         >
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -103,10 +104,13 @@ const LoginScreen = () => {
               >
                 <Text style={styles.textButton}>Войти</Text>
               </TouchableOpacity>
-
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Registration")}
+              >
               <Text style={styles.textLink}>
                 Нет аккаунта? Зарегистрироваться
               </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </ImageBackground>
@@ -114,8 +118,6 @@ const LoginScreen = () => {
     </TouchableWithoutFeedback>
   );
 };
-
-export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {

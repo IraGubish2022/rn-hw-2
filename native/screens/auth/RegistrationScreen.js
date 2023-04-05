@@ -10,6 +10,7 @@ import {
   Keyboard,
   ImageBackground,
   Image,
+  Button,
 } from "react-native";
 
 import { useFonts } from "expo-font";
@@ -23,12 +24,12 @@ const initialState = {
   password: "",
 };
 
-const RegistrationScreen = () => {
+export default function RegistrationScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [fontsLoaded] = useFonts({
-    "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Medium": require("../assets/fonts/Roboto-Medium.ttf"),
+    "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -53,7 +54,7 @@ const RegistrationScreen = () => {
       <View style={styles.container} onLayout={onLayoutRootView}>
         <ImageBackground
           style={styles.imageBg}
-          source={require('../assets/images/BG.jpg')}
+          source={require('../../assets/images/BG.jpg')}
         >
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -109,7 +110,7 @@ const RegistrationScreen = () => {
                 </View>
                 <View style={styles.imageWrapper}>
                   <Image
-                    source={require("../assets/images/add.png")}
+                    source={require("../../assets/images/add.png")}
                     style={styles.addIcon}
                   />
                 </View>
@@ -123,19 +124,22 @@ const RegistrationScreen = () => {
                 style={styles.button}
                 onPress={keyboardHide}
               >
-                <Text style={styles.textButton}>Зарегистрироваться</Text>
+                <Text 
+                style={styles.textButton}
+                onPress={() => navigation.navigate("Home")}
+                >Зарегистрироваться</Text>
               </TouchableOpacity>
 
+              <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text style={styles.textLink}>Уже есть аккаунт? Войти</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </ImageBackground>
       </View>
     </TouchableWithoutFeedback>
   );
-};
-
-export default RegistrationScreen;
+}
 
 const styles = StyleSheet.create({
   container: {
